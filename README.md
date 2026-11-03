@@ -48,7 +48,7 @@ Pilihan menu:
 python -m unittest test_project -v
 ```
 
-10 test tersebar di 6 test class: `TestModels`, `TestTextUtils`, `TestDataLoader`, `TestAverage`, `TestUrutkanDurasi`, `TestTambahan`.
+7 test tersebar di 5 test class: `TestModels`, `TestTextUtils`, `TestDataLoader`, `TestAnalysis`, `TestMain`.
 
 ## Konsep Pemrograman yang Digunakan
 

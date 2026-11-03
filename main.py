@@ -7,7 +7,6 @@ IMPACTS = ["Beneficial", "Neutral", "Negative"]
 
 
 def normalize_platform(platform):
-    """Konversi nama platform dari menu ke nama yang ada di CSV."""
     if platform.lower() == "twitter":
         return "X (Twitter)"
     return platform

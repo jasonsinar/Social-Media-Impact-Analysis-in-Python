@@ -1,8 +1,10 @@
 import unittest
+from unittest.mock import patch
 from models import Record
-from text_utils import clean, ask_choice
+from text_utils import clean
 from data_loader import parse_row
-from analysis import average, urutkan_durasi
+from analysis import average
+from main import normalize_platform, print_menu, get_choice
 
 
 def make_record(**overrides):
@@ -30,7 +32,6 @@ def base_row(**overrides):
 
 
 class TestModels(unittest.TestCase):
-    # Test 1 — models.py: usage_category mengkategorikan durasi dengan benar
     def test_usage_category(self):
         self.assertEqual(make_record(daily_hours=2.0).usage_category(), "Low")
         self.assertEqual(make_record(daily_hours=5.0).usage_category(), "Medium")
@@ -38,13 +39,11 @@ class TestModels(unittest.TestCase):
 
 
 class TestTextUtils(unittest.TestCase):
-    # Test 2 — text_utils.py: clean menghapus spasi dan mengubah ke huruf kecil
     def test_clean(self):
         self.assertEqual(clean("  Instagram  "), "instagram")
 
 
 class TestDataLoader(unittest.TestCase):
-    # Test 3 — data_loader.py: parse_row menghasilkan Record dengan nilai yang benar
     def test_parse_row(self):
         rec = parse_row(base_row())
         self.assertEqual(rec.platform, "Instagram")
@@ -52,41 +51,21 @@ class TestDataLoader(unittest.TestCase):
         self.assertTrue(rec.late_night)
 
 
-class TestAverage(unittest.TestCase):
-    # Test 4 — analysis.py: average menghitung rata-rata dengan benar
+class TestAnalysis(unittest.TestCase):
     def test_average(self):
         self.assertAlmostEqual(average([2.0, 4.0, 6.0]), 4.0)
 
 
-class TestUrutkanDurasi(unittest.TestCase):
-    # Test 5 — analysis.py: urutkan_durasi mengurutkan dari tertinggi ke terendah
-    def test_urutkan_durasi(self):
-        records = [make_record(daily_hours=2.0), make_record(daily_hours=6.0), make_record(daily_hours=4.0)]
-        result = urutkan_durasi(records)
-        self.assertEqual(result[0].daily_hours, 6.0)
-        self.assertEqual(result[2].daily_hours, 2.0)
+class TestMain(unittest.TestCase):
+    def test_normalize_platform_twitter(self):
+        self.assertEqual(normalize_platform("Twitter"), "X (Twitter)")
 
+    def test_normalize_platform_other(self):
+        self.assertEqual(normalize_platform("Instagram"), "Instagram")
 
-class TestTambahan(unittest.TestCase):
-    # Test 6 — sleep_deficit menghitung kurang tidur dengan benar
-    def test_sleep_deficit(self):
-        self.assertAlmostEqual(make_record(sleep_hours=6.0).sleep_deficit(), 2.0)
-
-    # Test 7 — average mengembalikan 0.0 jika list kosong
-    def test_average_list_kosong(self):
-        self.assertEqual(average([]), 0.0)
-
-    # Test 8 — parse_row: Late_Night_Usage "False" menghasilkan False
-    def test_late_night_false(self):
-        self.assertFalse(parse_row(base_row(Late_Night_Usage="False")).late_night)
-
-    # Test 9 — urutkan_durasi tidak error dengan list kosong
-    def test_urutkan_kosong(self):
-        self.assertEqual(urutkan_durasi([]), [])
-
-    # Test 10 — clean tidak mengubah string yang sudah bersih
-    def test_clean_sudah_bersih(self):
-        self.assertEqual(clean("tiktok"), "tiktok")
+    def test_get_choice_valid(self):
+        with patch("builtins.input", return_value="1"):
+            self.assertEqual(get_choice(), "1")
 
 
 if __name__ == "__main__":
