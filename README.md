@@ -8,16 +8,16 @@ https://youtu.be/SrJ9_P8d-e8
 
 ## Dataset
 
-File: `Social_media_impact_on_life.csv` (4.500 baris, sumber: Kaggle)
+File: 'Social_media_impact_on_life.csv' (4.500 baris, sumber: Kaggle)
 
 Kolom yang digunakan:
-- `Age` — usia pengguna
-- `Primary_Platform` — aplikasi media sosial utama
-- `Daily_Usage_Hours` — durasi penggunaan per hari (jam)
-- `Sleep_Duration_Hours` — durasi tidur per hari (jam)
-- `Sleep_Quality_Score` — skor kualitas tidur (1–5)
-- `Late_Night_Usage` — apakah menggunakan media sosial malam hari
-- `Overall_Impact` — dampak keseluruhan (Beneficial / Neutral / Negative)
+- 'Age' — usia pengguna
+- 'Primary_Platform' — aplikasi media sosial utama
+- 'Daily_Usage_Hours' — durasi penggunaan per hari (jam)
+- 'Sleep_Duration_Hours' — durasi tidur per hari (jam)
+- 'Sleep_Quality_Score' — skor kualitas tidur (1–5)
+- 'Late_Night_Usage' — apakah menggunakan media sosial malam hari
+- 'Overall_Impact' — dampak keseluruhan (Beneficial / Neutral / Negative)
 
 ## Struktur File
 
